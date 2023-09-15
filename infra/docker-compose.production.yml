@@ -12,7 +12,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
-    build: ../backend/
+    image: vitrazliv/foodgram_backend:latest
     env_file: ../.env
     volumes:
       - static:/backend_static
@@ -20,9 +20,8 @@ services:
     depends_on:
       - db
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: vitrazliv/foodgram_frontend:latest
+    env_file: ../.env
     volumes:
       - ../frontend/:/app/result_build/
   nginx:
