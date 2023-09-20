@@ -1,6 +1,9 @@
 name: Main Foodgram workflow
 
-on: [push]
+on: 
+  push:
+    branches: [ master ]
+
   
 jobs:
   tests:
@@ -27,7 +30,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8==6.0.0 flake8-isort==6.0.0
         pip install -r ./backend/requirements.txt
-    - name: Test with flake8 and django tests
+    - name: Test with flake8
       env:
         POSTGRES_USER: django_user
         POSTGRES_PASSWORD: django_password
@@ -56,7 +59,7 @@ jobs:
         with:
           context: ./backend/
           push: true
-          tags: vitrazliv/kittygram_backend:latest
+          tags: vitrazliv/foodgram_backend:latest
   
   frontend_tests:
     runs-on: ubuntu-latest
