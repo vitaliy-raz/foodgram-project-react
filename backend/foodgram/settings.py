@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "djoser",
     "django_filters",
-    "foodgram",
     "api",
     "recipes",
     "users",
@@ -169,3 +168,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 FILE_NAME = "shopping_cart.txt"
+
+EMPTY_VALUE = '-пусто-'

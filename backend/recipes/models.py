@@ -114,7 +114,7 @@ class Favorite(models.Model):
         verbose_name="пользователь",
     )
 
-    recipes = models.ForeignKey(
+    recipe = models.ForeignKey(
         Recipe,
         verbose_name="Рецепты",
         on_delete=models.CASCADE,

@@ -10,7 +10,7 @@ from recipes.models import (Recipe, Tag, Ingredient,
 from users.models import User, Subscribe
 
 
-class GetUserSerializer(serializers.ModelSerializer):
+class UserGetSerializer(UserSerializer):
     is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
@@ -61,7 +61,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'image', 'cooking_time')
 
 
-class UserSubscribeRepresentSerializer(GetUserSerializer):
+class UserSubscribeRepresentSerializer(UserGetSerializer):
     is_subscribed = serializers.SerializerMethodField()
     recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
@@ -148,7 +148,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 
 
 class CreateRecipeIngredientSerializer(serializers.ModelSerializer):
-    id = serializers.PrimaryKeyRelatedField()
+    id = serializers.IntegerField()
     amount = serializers.IntegerField()
 
     class Meta:
@@ -158,7 +158,7 @@ class CreateRecipeIngredientSerializer(serializers.ModelSerializer):
 
 class RecipeReadSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
-    author = GetUserSerializer(read_only=True)
+    author = UserGetSerializer(read_only=True)
     ingredients = RecipeIngredientSerializer()
     image = Base64ImageField(required=False)
     is_favorited = serializers.SerializerMethodField(read_only=True)
@@ -195,7 +195,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 class RecipeCreateSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(), many=True)
-    author = GetUserSerializer(read_only=True)
+    author = UserGetSerializer(read_only=True)
     ingredients = RecipeIngredientSerializer(many=True)
     image = Base64ImageField
 

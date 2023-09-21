@@ -7,15 +7,15 @@ from recipes.models import (Favorite, Ingredient, Recipe,
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'color', 'slug')
-    search_fields = ('name', 'color', 'slug')
-    list_filter = ('name', 'color', 'slug')
+    list_display = ('pk', 'title', 'color', 'slug')
+    search_fields = ('title', 'color', 'slug')
+    list_filter = ('title', 'color', 'slug')
     empty_value_display = settings.EMPTY_VALUE
 
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'measurement_unit')
+    list_display = ('pk', 'name', 'measure')
     search_fields = ('name',)
     list_filter = ('name',)
     empty_value_display = settings.EMPTY_VALUE
