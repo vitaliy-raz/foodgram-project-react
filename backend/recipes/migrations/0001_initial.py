@@ -15,15 +15,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Favorite',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
             ],
         ),
         migrations.CreateModel(
             name='Ingredient',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Название')),
-                ('measure', models.CharField(max_length=200, verbose_name='Единица измерения')),
+                ('id', models.BigAutoField(
+                            auto_created=True, primary_key=True,
+                            serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100,
+                                          verbose_name='Название')),
+                ('measure', models.CharField(
+                    max_length=200, verbose_name='Единица измерения')),
             ],
             options={
                 'verbose_name': 'Ингредиент',
@@ -33,11 +39,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Recipe',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200, verbose_name='Название рецепта')),
-                ('description', models.TextField(verbose_name='Описание рецепта')),
-                ('image', models.ImageField(blank=True, upload_to='images/', verbose_name='Картинка')),
-                ('cooking_time', models.PositiveIntegerField(verbose_name='Время приготовления')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=200,
+                                          verbose_name='Название рецепта')),
+                ('description', models.TextField(
+                    verbose_name='Описание рецепта')),
+                ('image', models.ImageField(blank=True, upload_to='images/',
+                                            verbose_name='Картинка')),
+                ('cooking_time', models.PositiveIntegerField(
+                    verbose_name='Время приготовления')),
             ],
             options={
                 'verbose_name': 'Рецепт',
@@ -48,7 +60,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RecipeIngredient',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
                 ('amount', models.IntegerField(verbose_name='Количество')),
             ],
             options={
@@ -59,10 +73,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200, unique=True)),
                 ('slug', models.SlugField(max_length=200, unique=True)),
-                ('color', models.CharField(max_length=7, unique=True, verbose_name='Цвет')),
+                ('color', models.CharField(max_length=7, unique=True,
+                                           verbose_name='Цвет')),
             ],
             options={
                 'verbose_name': 'Тег',
@@ -72,8 +89,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ShoppingCart',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='carts', to='recipes.recipe', verbose_name='Рецепт')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
+                ('recipe', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='carts', to='recipes.recipe',
+                    verbose_name='Рецепт')),
             ],
             options={
                 'verbose_name': 'Список покупок',
