@@ -20,7 +20,11 @@ class User(AbstractUser):
         blank=False,
         null=False,
     )
-    last_name = models.CharField(max_length=150, blank=False, null=False)
+    last_name = models.CharField(
+        max_length=150,
+        blank=False,
+        null=False
+    )
     password = models.CharField(
         max_length=150,
         blank=False,
@@ -28,9 +32,9 @@ class User(AbstractUser):
     )
 
     class Meta:
-        ordering = ["id"]
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        ordering = ['id']
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
     def __str__(self):
         return self.username
@@ -40,23 +44,23 @@ class Subscribe(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name="подписчик",
-        related_name="subscriber",
+        verbose_name='подписчик',
+        related_name='subscriber',
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name="Автор",
-        related_name="subscribing",
+        verbose_name='Автор',
+        related_name='subscribing',
     )
 
     class Meta:
-        ordering = ("-id",)
+        ordering = ('-id',)
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "author"], name="unique_subscription"
+                fields=['user', 'author'], name='unique_subscription'
             )
         ]
 
     def __str__(self):
-        return f"{self.user.username} подписан на {self.author.username}"
+        return f'{self.user.username} подписан на {self.author.username}'
