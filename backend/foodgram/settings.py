@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -114,7 +114,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
-    'DEFAULT_PAGINATION_CLASS': 
+    'DEFAULT_PAGINATION_CLASS':
         'api.paginations.CustomPaginator',
     'PAGE_SIZE': 6,
     'SEARCH_PARAM': 'name',
@@ -132,7 +132,7 @@ DJOSER = {
         'current_user': 'api.serializers.UserGetSerializer',
     },
     'PERMISSIONS': {
-        'user_list': ['rest_framework.permissions.AllowAny'],
+        'user_list': ['rest_framework.permissions.CurrentUserOrAdminOrReadOnly'],
         'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly'],
     }
 }
@@ -155,7 +155,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/app/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
