@@ -25,10 +25,11 @@ class UserGetSerializer(UserSerializer):
                   'last_name', 'is_subscribed')
 
     def get_is_subscribed(self, obj):
-        user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return Subscribe.objects.filter(user=user, author=obj).exists()
+        return (self.context.get('request').user.is_authenticated
+                and Subscribe.objects.filter(
+                    user=self.context.get('request').user,
+                    author=obj
+        ).exists())
 
 
 class UserSignUpSerializer(UserCreateSerializer):
@@ -55,7 +56,7 @@ class SubscribeSerializer(UserGetSerializer):
         fields = ('id', 'email', 'username', 'first_name',
                   'last_name', 'password', 'recipes_count', 'recipes')
         read_only_fields = ('email', 'username', 'first_name',
-                            'last_name', 'password')
+                            'last_name', 'password', 'recipes_count')
 
     def validate(self, data):
         author = self.instance
