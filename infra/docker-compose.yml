@@ -16,19 +16,22 @@ services:
     image: vitrazliv/foodgram_backend:latest
     env_file: ../.env
     volumes:
-      - static:/app/backend_static
+      - static:/app/static/
       - media:/app/media/
     depends_on:
       - db
+    restart: always
   
   frontend:
     image: vitrazliv/foodgram_frontend:latest
     env_file: ../.env
+    command: cp -r /app/result_build/. /frontend_static/
     volumes:
       - ../frontend/:/app/result_build/
       
-  nginx:
-    image: nginx:1.19.3
+  gateway:
+    image: vitrazliv/foodgram_gateway:latest
+    env_file: ../.env
     ports:
       - "8000:80"
     volumes:
