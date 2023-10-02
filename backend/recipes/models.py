@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from users.models import User
 
 
@@ -53,7 +54,7 @@ class Recipe(models.Model):
     )
     author = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         related_name='recipes',
         verbose_name='Автор',
@@ -62,7 +63,14 @@ class Recipe(models.Model):
         Tag,
         verbose_name='Тэг',
     )
-    cooking_time = models.PositiveIntegerField('Время приготовления')
+    cooking_time = models.PositiveSmallIntegerField(
+        'Время приготовления',
+        validators=[
+            MinValueValidator(
+                1, message='Время приготовления должно быть больше 0'
+            )
+        ]
+    )
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient',
@@ -90,11 +98,22 @@ class RecipeIngredient(models.Model):
         related_name='recipeingredients',
         verbose_name='Ингредиент',
     )
-    amount = models.IntegerField(
+    amount = models.PositiveSmallIntegerField(
         'Количество',
+        validators=[
+            MinValueValidator(
+                1, message='Количество ингредиента должно быть больше 0'
+            )
+        ]
     )
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['recipe', 'ingredient'],
+                name='unique_recipe_ingredient_list'
+            )
+        ]
         verbose_name = 'Ингредиент рецепта'
         verbose_name_plural = 'Ингредиенты рецептов'
 
@@ -119,6 +138,13 @@ class Favorite(models.Model):
         on_delete=models.CASCADE,
         related_name='favorites',
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'], name='unique_user_recipe_list'
+            )
+        ]
 
 
 class ShoppingCart(models.Model):

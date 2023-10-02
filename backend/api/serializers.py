@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from django.db import transaction
-from django.db.models import F
-from django.shortcuts import get_object_or_404
 from rest_framework.validators import UniqueTogetherValidator
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from django.db import transaction
+from django.db.models import F
+from django.shortcuts import get_object_or_404
 
 from djoser.serializers import UserCreateSerializer, UserSerializer
 
@@ -25,11 +25,11 @@ class UserGetSerializer(UserSerializer):
                   'last_name', 'is_subscribed')
 
     def get_is_subscribed(self, obj):
-        return (self.context.get('request').user.is_authenticated
-                and Subscribe.objects.filter(
-                    user=self.context.get('request').user,
-                    author=obj
-        ).exists())
+        return (
+            self.context.get('request').user.is_authenticated
+            and Subscribe.objects.filter(
+                user=self.context.get('request').user,
+                author=obj).exists())
 
 
 class UserSignUpSerializer(UserCreateSerializer):
