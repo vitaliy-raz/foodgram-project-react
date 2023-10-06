@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'default')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'true' == str(os.getenv('DEBUG', 'False')).lower
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['158.160.77.25', '127.0.0.1', 'localhost', 'foodgram-vit.ddns.net']
 
 
 # Application definition
