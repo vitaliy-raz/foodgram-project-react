@@ -27,7 +27,7 @@ services:
     env_file: ./.env
     command: cp -r /app/result_build/. /frontend_static/
     volumes:
-      - ./frontend/:/result_build/
+      - ../frontend/:/result_build/
       
   nginx:
     image: vitrazliv/foodgram_gateway:latest
